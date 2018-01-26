@@ -1,0 +1,8 @@
+{
+  "name": "magnetic-switch-rest-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:SebastianMueller87/magnetic-switch-rest-server.git",
+  "author": "Sebastian Müller <sebastian@sourceboat.com>",
+  "license": "MIT"
+}
