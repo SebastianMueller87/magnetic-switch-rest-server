@@ -6,6 +6,7 @@
   "author": "Sebastian Müller <sebastian@sourceboat.com>",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "express": "^4.16.2"
   }
 }
