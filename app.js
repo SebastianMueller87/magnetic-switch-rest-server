@@ -26,10 +26,10 @@ app.listen(dotenv.PORT, function () {
 
 function watchButton() {
   var Gpio = require('onoff').Gpio
-  var led = new Gpio(16, 'out')
-  var button = new Gpio(4, 'in', 'both')
+  // var led = new Gpio(16, 'out')
+  var MAGNET_GPIO = new Gpio(17, 'in', 'both')
 
-  button.watch(function(err, value) {
+  MAGNET_GPIO.watch(function(err, value) {
     led.writeSync(value)
   })
 }
