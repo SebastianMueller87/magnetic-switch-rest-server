@@ -30,6 +30,7 @@ function watchButton() {
   var MAGNET_GPIO = new Gpio(17, 'in', 'both')
 
   MAGNET_GPIO.watch(function(err, value) {
-    led.writeSync(value)
+    console.log(err)
+    console.log(value)
   })
 }
