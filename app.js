@@ -3,6 +3,8 @@ var app = express()
 var path = require("path")
 var dotenv = require('dotenv').config({ path: './.env' }).parsed
 var dns = require('dns')
+var magnetPin = 4
+var ledPin = 16
 
 app.use(express.static('public'))
 
@@ -11,11 +13,6 @@ app.use(express.static('public'))
  */
 app.get('/', function (req, res) {
   console.log('index route')
-  res.sendFile(path.join(__dirname + '/public/index.html'))
-})
-
-app.get('/blink', function (req, res) {
-  console.log('blink route')
   res.sendFile(path.join(__dirname + '/public/index.html'))
 })
 
@@ -31,15 +28,15 @@ app.listen(dotenv.PORT, function () {
  *  Init watchter
  */
 
- initWatcher()
+initWatcher()
 
 function initWatcher() {
   var Gpio = require('onoff').Gpio
-  var ledPin = new Gpio(16, 'out')
-  var magnetSensorPin = new Gpio(17, 'in', 'both')
+  var magnetSensorPin = new Gpio(magnetPin, 'in', 'both')
+  var ledPin = new Gpio(ledPin, 'out')
 
   magnetSensorPin.watch(function(err, value) {
-    console.log('value')
+    console.log('new Value: ', value)
     ledPin.writeSync(value)
   })
 }
