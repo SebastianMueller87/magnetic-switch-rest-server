@@ -1,16 +1,19 @@
-var express = require('express')
-var app = express()
-var path = require("path")
-var dotenv = require('dotenv').config({ path: './.env' }).parsed
-var dns = require('dns')
-var magnetPin = 4
-var ledPin = 16
+const express = require('express')
+const app = express()
+const path = require("path")
+const dotenv = require('dotenv').config({ path: './.env' }).parsed
+const dns = require('dns')
+const Gpio = require('onoff').Gpio
+const magnetPin = 4
+const ledPin = 16
 
-app.use(express.static('public'))
 
 /**
+ * ################################
  * Server
  */
+app.use(express.static('public'))
+
 app.get('/', function (req, res) {
   console.log('index route')
   res.sendFile(path.join(__dirname + '/public/index.html'))
@@ -25,13 +28,13 @@ app.listen(dotenv.PORT, function () {
 
 
 /**
- *  Init watchter
+ * ################################
+ *  GPIO watchter
  */
 
 initWatcher()
 
 function initWatcher() {
-  var Gpio = require('onoff').Gpio
   var magnetSensorPin = new Gpio(magnetPin, 'in', 'both')
   var ledPin = new Gpio(ledPin, 'out')
 
