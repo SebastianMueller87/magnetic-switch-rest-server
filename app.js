@@ -4,8 +4,8 @@ const path = require("path")
 const dotenv = require('dotenv').config({ path: './.env' }).parsed
 const dns = require('dns')
 const Gpio = require('onoff').Gpio
-const magnetPin = 4
-const ledPin = 16
+const magnetPinNumber = 4
+const ledPinNumber = 16
 
 
 /**
@@ -35,8 +35,8 @@ app.listen(dotenv.PORT, function () {
 initWatcher()
 
 function initWatcher() {
-  var magnetSensorPin = new Gpio(magnetPin, 'in', 'both')
-  var ledPin = new Gpio(ledPin, 'out')
+  var magnetSensorPin = new Gpio(magnetPinNumber, 'in', 'both')
+  var ledPin = new Gpio(ledPinNumber, 'out')
 
   magnetSensorPin.watch(function(err, value) {
     console.log('new Value: ', value)
