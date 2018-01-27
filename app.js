@@ -6,6 +6,9 @@ var dns = require('dns')
 
 app.use(express.static('public'))
 
+/**
+ * Server
+ */
 app.get('/', function (req, res) {
   console.log('index route')
   res.sendFile(path.join(__dirname + '/public/index.html'))
@@ -13,7 +16,6 @@ app.get('/', function (req, res) {
 
 app.get('/blink', function (req, res) {
   console.log('blink route')
-  watchButton()
   res.sendFile(path.join(__dirname + '/public/index.html'))
 })
 
@@ -24,13 +26,20 @@ app.listen(dotenv.PORT, function () {
   })
 })
 
-function watchButton() {
-  var Gpio = require('onoff').Gpio
-  // var led = new Gpio(16, 'out')
-  var MAGNET_GPIO = new Gpio(17, 'in', 'both')
 
-  MAGNET_GPIO.watch(function(err, value) {
-    console.log(err)
-    console.log(value)
+/**
+ *  Init watchter
+ */
+
+ initWatcher()
+
+function initWatcher() {
+  var Gpio = require('onoff').Gpio
+  var ledPin = new Gpio(16, 'out')
+  var magnetSensorPin = new Gpio(17, 'in', 'both')
+
+  magnetSensorPin.watch(function(err, value) {
+    console.log('value')
+    ledPin.writeSync(value)
   })
 }
