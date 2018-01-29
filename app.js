@@ -4,8 +4,8 @@ const path = require("path")
 const dotenv = require('dotenv').config({ path: './.env' }).parsed
 const dns = require('dns')
 const Gpio = require('onoff').Gpio
-const magnetPinNumber = 14
-const ledPinNumber = 15
+const magnetPinNumber = 15
+const ledPinNumber = 27
 const jsonfile = require('jsonfile')
 const jsonDataFile = './public/data.json'
 
