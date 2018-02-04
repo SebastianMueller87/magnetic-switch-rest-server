@@ -1,16 +1,28 @@
 # magnetic-switch-rest-server
 
-
 The goal of this repository was to connect a magnetic sensor (door and window sensor) to a raspberry pi zero.
 
 The status changed should be tracked and stored. The raspberry should also host a webserver to grab the data from remote.
 
-### Used Packages:
+This readme also shows how to start a nodejs script after system boot using `forever`.
+
+## Table of contents
+
+- [Packages](#packages)
+- [Setup Raspberry Pi Zero](#setup-raspberry-pi-zero)
+  - [Fresh install](#fresh-install)
+  - [Install nodejs](#install-nodejs)
+  - [Install yarn](#install-yarn)
+- [Autostart (after boot)](#autostart-after-boot)
+
+## Packages
 
 * [onoff](https://github.com/fivdi/onoff)
 * [jsonfile](https://github.com/jprichardson/node-jsonfile)
 * [express](https://github.com/expressjs/express)
 * [dotenv](https://github.com/motdotla/dotenv)
+* [forever](https://www.npmjs.com/package/forever) (autostart - optional)
+* [forever-service](https://www.npmjs.com/package/forever-service) (autostart  - optional)
 
 ## Setup Raspberry Pi Zero
 
@@ -73,3 +85,27 @@ sudo apt remove cmdtest
 sudo apt-get install yarn
 ```
 
+## Autostart (after boot)
+
+Use `forever` to start your nodejs application after system boot.
+
+(In my case i had to use `npm` instead of `yarn`)
+
+1. Install forever globally via `sudo npm install forever -g`
+2. Install forever-service globally via `sudo npm install forever-service -g`
+3. Create a new service using `sudo forever-service install myService`
+
+   - myService is just a placeholder in this case. You can name it how ever you want.
+4. Now you should be able to start, stop or restart the service using the following commands:
+
+    ```
+    service myService start
+    service myService stop
+    service myService restart
+    ```
+
+5. Add your service to `/etc/rc.local` to run your service after system boot.
+
+    - type `sudo nano /etc/rc.local` top open the file
+    - add `sudo service myService start` above `exit(0)`
+    - Test it by restarting your pi
